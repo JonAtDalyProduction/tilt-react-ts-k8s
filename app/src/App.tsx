@@ -1,9 +1,27 @@
+import { useEffect, useState } from 'react';
 import './App.css';
-
+interface BackendDTO {
+  message: string;
+}
 function App() {
+  const [message, setMessage] = useState<string>('');
+  useEffect(() => {
+    fetch('http://localhost:3333')
+      .then((res) => res.json())
+      .then((data: BackendDTO) => {
+        console.log(data.message);
+        setMessage(data.message);
+      })
+      .catch((e) => {
+        setMessage('Backend service not available');
+        console.error(e);
+      });
+  }, []);
+
   return (
     <div className='App'>
       <h1>Vite + React + K8s + Kubernetes</h1>
+      <h2>{message}</h2>
       <div>
         <img
           style={{ width: '300px', height: '200px' }}
