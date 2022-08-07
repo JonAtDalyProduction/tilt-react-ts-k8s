@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-vite-react
+  labels:
+    app: example-vite-react
+spec:
+  selector:
+    matchLabels:
+      app: example-vite-react
+  template:
+    metadata:
+      labels:
+        app: example-vite-react
+    spec:
+      containers:
+        - name: example-vite-react
+          image: example-vite-react-image
+          ports:
+            - containerPort: 5173

@@ -1,0 +1,6 @@
+.git
+*Dockerfile*
+app/node_modules
+README*
+*.env*
+app/dist
