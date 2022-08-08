@@ -6,7 +6,7 @@ interface BackendDTO {
 function App() {
   const [message, setMessage] = useState<string>('');
   useEffect(() => {
-    fetch('http://localhost:3333')
+    fetch('http://api.localhost')
       .then((res) => res.json())
       .then((data: BackendDTO) => {
         console.log(data.message);

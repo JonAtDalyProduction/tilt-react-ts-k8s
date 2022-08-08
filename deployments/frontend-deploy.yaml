@@ -16,9 +16,9 @@ spec:
       containers:
         - name: example-vite-react
           image: example-vite-react-image
-          env:
-            - name: BACKEND_URL
-              value: 'http://example-go-api/api'
+          # env:
+          #   - name: BACKEND_URL
+          #     value: 'http://api.localhost'
           ports:
             - containerPort: 5173
 ---
