@@ -1,15 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, MouseEvent } from 'react';
 import './App.css';
 interface BackendDTO {
   message: string;
 }
 function App() {
   const [message, setMessage] = useState<string>('');
-  useEffect(() => {
-    fetch('http://api.localhost')
-      .then((res) => res.json())
+
+  const handleClick = (e: MouseEvent) => {
+    e.preventDefault();
+    console.log('sending post request');
+    fetch('http://localhost:3333', {
+      method: 'POST',
+      mode: 'cors',
+    })
+      .then((res) => {
+        console.dir(res);
+        return res.json();
+      })
       .then((data: BackendDTO) => {
-        console.log(data.message);
+        setMessage(data.message);
+      })
+      .catch((e) => {
+        setMessage('Post to backend failed');
+        console.error(e);
+      });
+  };
+  useEffect(() => {
+    fetch('http://api.localhost', {
+      method: 'GET',
+      mode: 'cors',
+    })
+      .then((res) => {
+        console.dir(res);
+        return res.json();
+      })
+      .then((data: BackendDTO) => {
         setMessage(data.message);
       })
       .catch((e) => {
@@ -22,6 +47,11 @@ function App() {
     <div className='App'>
       <h1>Vite + React + K8s + Kubernetes</h1>
       <h2>{message}</h2>
+      <div style={{ padding: '10px' }}>
+        <button style={{ backgroundColor: 'gray' }} onClick={(e) => handleClick(e)}>
+          Send Post Request
+        </button>
+      </div>
       <div>
         <img
           style={{ width: '300px', height: '200px' }}
